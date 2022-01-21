@@ -86,6 +86,13 @@ async function createPayments({
     }
   }
 
+  if (paymentsInput) {
+    const onePayment = paymentsInput.find((x) => x.amount > 0);
+    if (onePayment) {
+      paymentsInput = [onePayment];
+    }
+  }
+
   // Create authorized payments for each
   const paymentPromises = (paymentsInput || []).map(async (paymentInput) => {
     const { amount, method: methodName } = paymentInput;
